@@ -1,0 +1,35 @@
+.Home-page{
+    display: flex;
+    flex-direction: row;
+    background-color: grey;
+    width: 100vw;
+    height: 100vh;
+}
+.sign-in-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    background-color: red;
+
+}
+.sign-up-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    background-color: red;
+
+}
+
+
+.hero-section{
+    background-image: url("../img/download.jpg");
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-size: cover;
+    width: 50%;
+    height: 100vh;
+}
