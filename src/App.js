@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import HomePage from './components/HomePage.js';
 import Todos from './components/Todos.js';
-import Calender from './components/Calender.js';
+import Calendar from './components/Calendar.js';
 
 
 
@@ -33,8 +33,8 @@ function App() {
     return (
       <Router>
         <Switch>
-          <Route matches path="/calender">       {/* "exact" will not allow nested routes */}
-          <Calender/>
+          <Route matches path="/calendar">       {/* "exact" will not allow nested routes */}
+          <Calendar/>
           </Route>
           <Route matches path="/todo">       {/* "exact" will not allow nested routes */}
             <Todos />
