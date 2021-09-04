@@ -23,7 +23,7 @@ function App() {
             <HomePage loggedin={setuser} />
           </Route>
           <Route path="*">
-            <h1>404</h1>
+            <h1>404....</h1>
           </Route>
         </Switch>
       </Router>
@@ -33,14 +33,14 @@ function App() {
     return (
       <Router>
         <Switch>
-          <Route matches path="/">       {/* "exact" will not allow nested routes */}
+          <Route matches path="/calender">       {/* "exact" will not allow nested routes */}
           <Calender/>
           </Route>
           <Route matches path="/todo">       {/* "exact" will not allow nested routes */}
             <Todos />
           </Route>
           <Route path="*">
-            <h1>404</h1>
+            <h1>404a</h1>
           </Route>
         </Switch>
       </Router>

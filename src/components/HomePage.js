@@ -13,14 +13,30 @@ import {
 } from "react-router-dom";
 
 function HomePage(props) {
-    const signUp= () =>{
+    let { path, url } = useRouteMatch();
+    console.log("url is", url, "path is", path);
+    const addDataIntoCache = (cacheName, Url, response) => {
+        // Converting our respons into Actual Response form
+        const data = new Response(JSON.stringify(response));
 
+        if ('caches' in window) {
+            // Opening given cache and putting our data into it
+            caches.open(cacheName).then((cache) => {
+                cache.put(Url, data);
+                alert('Data Added into cache!')
+            });
+        }
+    };
+    const signUp = () => {
+        
+        signIn();
     }
-    const signIn= () =>{
+    const signIn = () => {
+        addDataIntoCache("User", "http://localhost:3000/", {"status": true, "message": "User Signed In Successfully"});
         props.loggedin(true)
     }
-    const passwordMatch = ()=>{
-        if (newUserPassword===newUserPasswordConfirm) {
+    const passwordMatch = () => {
+        if (newUserPassword === newUserPasswordConfirm) {
             return true
         }
         else return false
@@ -29,10 +45,9 @@ function HomePage(props) {
     const [newUserEmail, setnewUserEmail] = useState('')
     const [newUserPassword, setnewUserPassword] = useState('')
     const [newUserPasswordConfirm, setnewUserPasswordConfirm] = useState('')
-    
-    
-    let { path, url } = useRouteMatch();
-    console.log("url is", url, "path is", path);
+
+
+
     return (
         <div className="Home-page">
             <Router>
@@ -54,7 +69,7 @@ function HomePage(props) {
                                         <LockIcon />
                                     </div>
                                     <div className="Proceed-btn-sec">
-                                        <button className="Proceed-btn"  onClick={signIn}>
+                                        <button className="Proceed-btn" onClick={signIn}>
                                             PROCEED <TrendingFlatIcon />
                                         </button>
                                     </div>
@@ -74,19 +89,19 @@ function HomePage(props) {
                                 <h2>SIGN UP</h2>
                                 <div className="input-user-details">
                                     <div className="enter-name-sec">
-                                        <input type="text" name="Name" value={newUserName} onChange={e =>{setnewUserName(e.value)}} id="Name" placeholder="Name" />
+                                        <input type="text" name="Name" value={newUserName} onChange={e => { setnewUserName(e.value) }} id="Name" placeholder="Name" />
                                         <EmailIcon />
                                     </div>
                                     <div className="enter-email-sec">
-                                        <input type="email" name="E-mail"  value={newUserEmail} onChange={e =>{setnewUserEmail(e.value)}}  id="E-mail" placeholder="E-mail" />
+                                        <input type="email" name="E-mail" value={newUserEmail} onChange={e => { setnewUserEmail(e.value) }} id="E-mail" placeholder="E-mail" />
                                         <EmailIcon />
                                     </div>
                                     <div className="enter-password-sec">
-                                        <input type="password" name="Password"  value={newUserPassword} onChange={e =>{setnewUserPassword(e.value)}}  id="Password" placeholder="Password" />
+                                        <input type="password" name="Password" value={newUserPassword} onChange={e => { setnewUserPassword(e.value) }} id="Password" placeholder="Password" />
                                         <LockIcon />
                                     </div>
                                     <div className="enter-password-sec">
-                                        <input type="password" name="Password-confirm"  value={newUserPasswordConfirm} onChange={e =>{setnewUserPasswordConfirm(e.value)}}   id="Password-confirm" placeholder="Confirm Password" />
+                                        <input type="password" name="Password-confirm" value={newUserPasswordConfirm} onChange={e => { setnewUserPasswordConfirm(e.value) }} id="Password-confirm" placeholder="Confirm Password" />
                                         <LockIcon />
                                     </div>
                                     <div className="proceed-btn-sec">
