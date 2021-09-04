@@ -77,7 +77,11 @@
     justify-content: space-between;
   }
   
-  
+  .done-items{
+    background-color: rgb(174, 183, 189);
+    color: rgb(77, 77, 77);
+    justify-content: last baseline;
+  }
   
   
   

@@ -10,15 +10,15 @@ import Todo from './Todo.js'
 function Todos() {
 
 
-    const [inputState, setinputState] = useState(['']);
+    const [inputState, setinputState] = useState({title: '', description: ''});
     const [todos, settodo] = useState([]);
 
-    const onInputChange = event => setinputState(event.target.value);
+    const onInputChange = event => setinputState({...inputState, [event.target.name]: event.target.value});
 
     const addTodo = () => {
         var input = {
-            "title": inputState,
-            "description": "some description",
+            "title": inputState.title,
+            "description": inputState.description,
             "is_completed": false
         }
         fetch('http://127.0.0.1:8000/', {
@@ -32,24 +32,24 @@ function Todos() {
                 getTodoData()
             }, 1000)
         )
-        setinputState('')
+        setinputState({title: '', description: ''})
     };
 
     const getTodoData = async () => {
         var response = await fetch(`http://127.0.0.1:8000/`);
-        // console.log(response);
         response = await response.json()
         console.log(response.data);
-        settodo(response.data.map(doc => ({ id: doc.id, title: doc.title, is_completed: doc.is_completed })));
-
+        settodo(response.data.map(doc => ({ id: doc.id, title: doc.title,description: doc.description, is_completed: doc.is_completed })));
     }
     return (
         <div className="App">
             <h1>React Todo</h1>
-            <div className="todo-list">
+            <button onClick={getTodoData} >RELOAD</button>
+            <div className="todo-list" id="todo-list">
                 {
                     document.addEventListener('DOMContentLoaded', () => {
                         getTodoData()
+                        console.log("looged")
                     })
                 }
                 {/* {
@@ -68,7 +68,9 @@ function Todos() {
                 }
             </div>
             <div className="input-box">
-                <input type="text" className="input" value={inputState} onChange={onInputChange} name="" id="todoItems" />
+                <input required type="datetime-local" name="" id="" />
+                <input required type="text" className="input" value={inputState.title} onChange={onInputChange} name="title" id="todoItems" />
+                <textarea name="description" value={inputState.description} onChange={onInputChange}  id="description" cols="90" rows="2" placeholder="description"></textarea>
                 <button onClick={addTodo} className="button"><AddCircleOutline /></button>
             </div>
         </div>

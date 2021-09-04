@@ -1,28 +1,26 @@
 import './App.css';
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import './index.css';
-import reportWebVitals from './reportWebVitals';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch
+  Route
 } from "react-router-dom";
 import HomePage from './components/HomePage.js';
 import Todos from './components/Todos.js';
+import Calender from './components/Calender.js';
+
 
 
 function App() {
-  const [user, setuser] = useState(false)
+  const [user, setuser] = useState(true)
   while (!user) {
-    return(
+    return (
       <Router>
         <Switch>
           <Route matches path="/">            {/* matches will allow nested routes */}
-            <HomePage loggedin={setuser}/>
+            <HomePage loggedin={setuser} />
           </Route>
           <Route path="*">
             <h1>404</h1>
@@ -31,11 +29,14 @@ function App() {
       </Router>
     );
   }
-  while (user){
-    return(
+  while (user) {
+    return (
       <Router>
         <Switch>
           <Route matches path="/">       {/* "exact" will not allow nested routes */}
+          <Calender/>
+          </Route>
+          <Route matches path="/todo">       {/* "exact" will not allow nested routes */}
             <Todos />
           </Route>
           <Route path="*">
@@ -45,7 +46,7 @@ function App() {
       </Router>
     );
   }
-  
+
 }
 
 export default App;

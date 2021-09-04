@@ -3,18 +3,15 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 
 function todo(props) {
-    if (props.data.is_completed) {
-        return(
-            <></>
-        )
-    }
-    else {
+    
+    if (!props.data.is_completed)  {
         return (
 
             <div className="todo-item">
                 {console.log(props.data)}
 
                 <h4>{props.data.title}</h4>
+                <p>{props.data.description}</p>
                 <button onClick={event => {
                     // var one = props.data.id;
                     var data = {
@@ -34,6 +31,14 @@ function todo(props) {
                 }}>
                     <DeleteForeverIcon />
                 </button>
+
+            </div>
+        )
+    }else{
+        return(
+            <div className="todo-item done-items" >
+                <h4 className="done-items" >{props.data.title}</h4>
+                <p className="done-items" >{props.data.description}</p>
             </div>
         )
     }
