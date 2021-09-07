@@ -2,12 +2,15 @@
     --bg-color : aliceblue;
     --event-blue : rgb(0, 132, 255);
     --today-active: rgb(97, 181, 255);
-    --disabled-items: rgb(219, 219, 219);
+    --disabled-items: rgb(245, 245, 245);
 
     
 }
 
-
+.calendar::selection{
+    background-color: var(--disabled-items);
+    color: var(--event-blue);
+}
 
 .calendar{
     background-color: var(--bg-color);
@@ -83,7 +86,7 @@
 
 .calendar-body{
     margin-top: 0em;
-
+    /* background-color: greenyellow; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,7 +127,7 @@
     display: grid;
     width: auto;
     border: 1px solid var(--event-blue);
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, 2fr);
     background-color: var(--bg-color);
     box-sizing: border-box;
 }
@@ -178,11 +181,11 @@
 .calendar-body-date-item.disable{
     background-color: var(--disabled-items);
 }
-.calendar-body-date-item:not(.active):hover{
-    background-color: var(--today-active);
-}
+/* .calendar-body-date-item:not(.active):hover{
+    
+} */
 .calendar-body-date-item:hover{
-
+    background-color: var(--today-active);
 }
 .calendar-body-date-item.disable:hover{
     background-color: var(--disabled-items);

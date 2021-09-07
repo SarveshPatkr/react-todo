@@ -31,6 +31,16 @@ export default function Calendar() {
         days.push('')
     }
 
+    fetch("http://127.0.0.1:8000/api/event/", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => res.json()).then(
+        (result) => {
+            console.log(result)
+        }
+    )
     const changeMonth = async (event) => {
         if (event.target.value === "next") {
             if (month === 11) {
@@ -77,28 +87,19 @@ export default function Calendar() {
                 </div>
                 <div className="calendar-body-date">
                     {days.map((day, index) => {
-                        if(day !== ''){
+                        if (day !== '') {
                             return (
                                 <div className={`calendar-body-date-item ${((Day === day) && (month === date.getMonth()) && (year === date.getFullYear())) ? ' active' : ''} ${(parseInt(day) ? ' ' : 'disable')}`} key={index}>
                                     <h6>{day}</h6>
                                     <div className="calendar-events">
-                                    <div className="calendar-event">
-                                        <span>Event Title</span>
-                                    </div>
-                                    <div className="calendar-event">
-                                        <span>Event Title</span>
-                                    </div>
-                                    <div className="calendar-event">
-                                        <span>Event Title</span>
-                                    </div>
-                                    <div className="calendar-event">
-                                        <span>Event Title</span>
-                                    </div>
+                                        <div className="calendar-event">
+                                            <span>Event Title</span>
+                                        </div>
                                     </div>
                                 </div>
                             )
                         }
-                        else{
+                        else {
                             return (
                                 <div className={`calendar-body-date-item ${((Day === day) && (month === date.getMonth()) && (year === date.getFullYear())) ? ' active' : ''} ${(parseInt(day) ? ' ' : 'disable')}`} key={index}>
                                 </div>

@@ -68,7 +68,10 @@ function Todos() {
                 }
             </div>
             <div className="input-box">
-                <input required type="datetime-local" name="" id="" />
+                {/* <input type="date" name="" id="" /> */}
+                {/* <input type="datetime" name="" id="" /> */}
+                <input type="datetime-local" name="" id="" />
+                {/* <input type="time" name="" id="" /> */}
                 <input required type="text" className="input" value={inputState.title} onChange={onInputChange} name="title" id="todoItems" />
                 <textarea name="description" value={inputState.description} onChange={onInputChange}  id="description" cols="90" rows="2" placeholder="description"></textarea>
                 <button onClick={addTodo} className="button"><AddCircleOutline /></button>

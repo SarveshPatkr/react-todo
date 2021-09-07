@@ -14,7 +14,8 @@ import Calendar from './components/Calendar.js';
 
 
 function App() {
-  const [user, setuser] = useState(true)
+  let User = localStorage.getItem("isLoggedIn")
+  const [user, setuser] = useState(User)
   while (!user) {
     return (
       <Router>
@@ -33,8 +34,8 @@ function App() {
     return (
       <Router>
         <Switch>
-          <Route matches path="/calendar">       {/* "exact" will not allow nested routes */}
-          <Calendar/>
+          <Route matches path="/">       {/* "exact" will not allow nested routes */}
+            <Calendar />
           </Route>
           <Route matches path="/todo">       {/* "exact" will not allow nested routes */}
             <Todos />
@@ -46,7 +47,6 @@ function App() {
       </Router>
     );
   }
-
 }
 
 export default App;

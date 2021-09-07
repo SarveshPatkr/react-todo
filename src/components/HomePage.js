@@ -13,39 +13,52 @@ import {
 } from "react-router-dom";
 
 function HomePage(props) {
-    let { path, url } = useRouteMatch();
-    console.log("url is", url, "path is", path);
-    const addDataIntoCache = (cacheName, Url, response) => {
-        // Converting our respons into Actual Response form
-        const data = new Response(JSON.stringify(response));
+    const [User, setUser] = useState({
+        "newUserName": "",
+        "newUserEmail": "",
+        "newUserPassword": "",
+        "newUserPasswordConfirm": ""
+    })
 
-        if ('caches' in window) {
-            // Opening given cache and putting our data into it
-            caches.open(cacheName).then((cache) => {
-                cache.put(Url, data);
-                alert('Data Added into cache!')
-            });
-        }
-    };
+    let { path, url } = useRouteMatch();
+
+    console.log("url is", url, "path is", path);
+
+
+
     const signUp = () => {
-        
-        signIn();
+        fetch("http://localhost:8000/api/signup/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: User.newUserName,
+                email: User.newUserEmail,
+                password: User.newUserPassword,
+            })
+        })
     }
+
     const signIn = () => {
-        addDataIntoCache("User", "http://localhost:3000/", {"status": true, "message": "User Signed In Successfully"});
-        props.loggedin(true)
+        localStorage.setItem("isLoggedIn", true);
     }
+
+
+
     const passwordMatch = () => {
-        if (newUserPassword === newUserPasswordConfirm) {
-            return true
+        if (User.newUserPassword === User.newUserPasswordConfirm) {
+            console.log(User.newUserPasswordConfirm)
+            return true;
         }
         else return false
     }
-    const [newUserName, setnewUserName] = useState('')
-    const [newUserEmail, setnewUserEmail] = useState('')
-    const [newUserPassword, setnewUserPassword] = useState('')
-    const [newUserPasswordConfirm, setnewUserPasswordConfirm] = useState('')
 
+    const inputChange = (event) => {
+        setUser({
+            [event.target.name]: event.target.value
+        })
+    }
 
 
     return (
@@ -89,19 +102,19 @@ function HomePage(props) {
                                 <h2>SIGN UP</h2>
                                 <div className="input-user-details">
                                     <div className="enter-name-sec">
-                                        <input type="text" name="Name" value={newUserName} onChange={e => { setnewUserName(e.value) }} id="Name" placeholder="Name" />
+                                        <input type="text"  minLength="3" name="newUserName" value={User.newUserName} onChange={inputChange} id="Name" placeholder="Name" />
                                         <EmailIcon />
                                     </div>
                                     <div className="enter-email-sec">
-                                        <input type="email" name="E-mail" value={newUserEmail} onChange={e => { setnewUserEmail(e.value) }} id="E-mail" placeholder="E-mail" />
+                                        <input type="email"  minLength="5" name="newUserEmail" value={User.newUserEmail} onChange={inputChange} id="E-mail" placeholder="E-mail" />
                                         <EmailIcon />
                                     </div>
                                     <div className="enter-password-sec">
-                                        <input type="password" name="Password" value={newUserPassword} onChange={e => { setnewUserPassword(e.value) }} id="Password" placeholder="Password" />
+                                        <input type="text"  minLength="8" name="newUserPassword" value={User.newUserPassword} onChange={inputChange} id="Password" placeholder="Password" />
                                         <LockIcon />
                                     </div>
                                     <div className="enter-password-sec">
-                                        <input type="password" name="Password-confirm" value={newUserPasswordConfirm} onChange={e => { setnewUserPasswordConfirm(e.value) }} id="Password-confirm" placeholder="Confirm Password" />
+                                        <input type="password"  minLength="8" name="newUserPasswordConfirm" value={User.newUserPasswordConfirm} onChange={inputChange} id="Password-confirm" placeholder="Confirm Password" />
                                         <LockIcon />
                                     </div>
                                     <div className="proceed-btn-sec">
